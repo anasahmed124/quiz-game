@@ -4,8 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz Game</title>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -15,6 +13,21 @@
           <h1 class="title">Trivia Quiz</h1>
           <button id="Quick-button">Quick play</button>
           <button id="start-button">Start quiz</button>
+
+          <div class="inputs">
+            <section>
+              <input
+                type="number"
+                id="num-questions"
+                placeholder="type amauont texts"
+              />
+
+              <label for="mySelect">Choose an option:</label>
+              <select id="mySelect">
+                <option value="">-- Select --</option>
+              </select>
+            </section>
+          </div>
         </div>
       </section>
 
@@ -30,5 +43,6 @@
       </section>
     </div>
     <script src="app.js"></script>
+    <script src="dropdown.js"></script>
   </body>
 </html>
