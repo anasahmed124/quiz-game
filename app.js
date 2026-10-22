@@ -1,34 +1,70 @@
-const api = "https://opentdb.com/api.php?amount=10&encode=url3986";
 const quickButton = document.getElementById("Quick-button");
 const startButton = document.getElementById("start-button");
-const statusElement = document.getElementById("status");
 const bar = document.getElementById("num-questions");
+const select = document.getElementById("mySelect");
+const difficulty = document.getElementById("Difficulty");
+const typeQuestions = document.getElementById("Type-questions");
+document.getElementById("num-questions").textContent = bar;
 
-async function fetchQuestions() {
+async function fetchData() {
   try {
-    const questions = document.getElementById("questions");
-    const categoryElement = document.getElementById("category");
-    const difficultyElement = document.getElementById("difficulty");
-    const typeElement = document.getElementById("type");
-    const select = document.getElementById("mySelect");
+    if (
+      bar.value >= 1 &&
+      select.value !== "" &&
+      select.value !== "" &&
+      difficulty.value !== "" &&
+      typeQuestions.value !== ""
+    ) {
+      const respone = await fetch(
+        `https://opentdb.com/api.php?amount=${bar.value}&category=${select.value}&difficulty=${difficulty.value}&type=${typeQuestions.value}}`,
+      );
 
-    const respone = await fetch(
-      `https://opentdb.com/api.php?amount=${bar.value}&category=${select.value}` /* &difficulty=${}&type=${typeElement.value}*/,
-    );
-    console.log("data fetches");
-    console.log(respone);
-    document.getElementById("num-questions").textContent = bar;
-    if (!respone.ok) {
-      throw new Error("erorr");
+      console.log("data fetched1");
+      console.log(respone);
+      console.log(select.value);
+      console.log(difficulty.value);
+      console.log(typeQuestions.value);
+
+      if (!respone.ok) {
+        throw new Error("erorr");
+      }
+
+      const data = await respone.json();
+      console.log(data);
+    } else if (bar.value >= 1 && select.value !== "") {
+      const respone = await fetch(
+        `https://opentdb.com/api.php?amount=${bar.value}&category=${select.value}`,
+      );
+
+      console.log("data fetched2");
+      console.log(respone);
+      console.log(select.value);
+
+      if (!respone.ok) {
+        throw new Error("erorr");
+      }
+
+      const data = await respone.json();
+      console.log(data);
     }
-    const data = await respone.json();
-    console.log(data);
-  } catch (error) {
-    /*
-      const statusElement = document.getElementById("timer");*/
-    console.log(error);
+  } catch {
+    error;
+    console.log(error.message);
   }
 }
-quickButton.addEventListener("click", () => {
-  fetchQuestions();
+/*
+    const respone = await fetch(
+      `https://opentdb.com/api.php?amount=${bar.value}&category=${select.value}`
+      /* &difficulty=${}&type=${typeElement.value} */
+/*
+    );
+
+    console.log("data fetches");
+    console.log(respone);
+    console.log(select.value);
+    document.getElementById("num-questions").textContent = bar;
+    */
+
+startButton.addEventListener("click", () => {
+  fetchData();
 });

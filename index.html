@@ -22,23 +22,29 @@
                 placeholder="type amauont texts"
               />
 
-              <label for="mySelect">Choose an option:</label>
+              <label for="mySelect-">Choose an option:</label>
               <select id="mySelect">
                 <option value="">-- Select --</option>
               </select>
+
+              <label for="Difficulty">Select Difficulty:</label>
+
+              <select name="Difficulty" id="Difficulty">
+                <option value="any">Any Difficulty</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+
+              <label for="Type-questions">Select Type:</label>
+
+              <select name="Type" id="Type-questions">
+                <option value="any">Any Type</option>
+                <option value="Multiple">Multiple Choices</option>
+                <option value="True-false">True / False</option>
+              </select>
             </section>
           </div>
-        </div>
-      </section>
-
-      <section>
-        <div class="quiz-info">
-          <p id="status" aria-live="polite"></p>
-          <h2 id="category"></h2>
-          <p id="difficulty"></p>
-          <p id="type"></p>
-          <p id="questions"></p>
-          <p id="timer"></p>
         </div>
       </section>
     </div>
