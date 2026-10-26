@@ -6,42 +6,58 @@
     <title>Quiz Game</title>
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <div class="container">
       <section>
         <div>
           <h1 class="title">Trivia Quiz</h1>
+
           <button id="Quick-button">Quick play</button>
           <button id="start-button">Start quiz</button>
 
           <div class="inputs">
             <section>
+              <label for="num-questions">Number of questions:</label>
               <input
                 type="number"
                 id="num-questions"
-                placeholder="type amauont texts"
+                placeholder="Enter number of questions"
+                min="1"
+                max="50"
+                value="10"
               />
 
-              <label for="mySelect">Choose an option:</label>
+              <label for="mySelect">Choose a category:</label>
               <select id="mySelect">
-                <option value="">-- Select --</option>
+                <option value="">Any Category</option>
+              </select>
+
+              <label for="Difficulty">Select Difficulty:</label>
+              <select name="Difficulty" id="Difficulty">
+                <option value="">Any Difficulty</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+
+              <label for="Type-questions">Select Type:</label>
+              <select name="Type" id="Type-questions">
+                <option value="">Any Type</option>
+                <option value="multiple">Multiple Choices</option>
+                <option value="boolean">True / False</option>
               </select>
             </section>
           </div>
         </div>
       </section>
-
-      <section>
-        <div class="quiz-info">
-          <p id="status" aria-live="polite"></p>
-          <h2 id="category"></h2>
-          <p id="difficulty"></p>
-          <p id="type"></p>
-          <p id="questions"></p>
-          <p id="timer"></p>
-        </div>
-      </section>
     </div>
+
+    <script src="app.js"></script>
+    <script src="dropdown.js"></script>
+  </body>
+</html>
+
     <script src="app.js"></script>
     <script src="dropdown.js"></script>
   </body>
