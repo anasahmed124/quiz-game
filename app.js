@@ -1,34 +1,63 @@
-const api = "https://opentdb.com/api.php?amount=10&encode=url3986";
 const quickButton = document.getElementById("Quick-button");
 const startButton = document.getElementById("start-button");
-const statusElement = document.getElementById("status");
 const bar = document.getElementById("num-questions");
+const select = document.getElementById("mySelect");
+const difficulty = document.getElementById("Difficulty");
+const typeQuestions = document.getElementById("Type-questions");
+document.getElementById("num-questions").textContent = bar;
 
-async function fetchQuestions() {
+async function fetchStartData() {
   try {
-    const questions = document.getElementById("questions");
-    const categoryElement = document.getElementById("category");
-    const difficultyElement = document.getElementById("difficulty");
-    const typeElement = document.getElementById("type");
-    const select = document.getElementById("mySelect");
+    const url = decodeURIComponent("https://opentdb.com/api.php");
+    const searchParams = new URLSearchParams();
 
-    const respone = await fetch(
-      `https://opentdb.com/api.php?amount=${bar.value}&category=${select.value}` /* &difficulty=${}&type=${typeElement.value}*/,
-    );
-    console.log("data fetches");
-    console.log(respone);
-    document.getElementById("num-questions").textContent = bar;
-    if (!respone.ok) {
-      throw new Error("erorr");
+    searchParams.append("amount", bar.value || 10);
+    searchParams.append("encode", "url3986");
+
+    if (select.value !== "") {
+      searchParams.append("category", select.value);
     }
-    const data = await respone.json();
+    if (difficulty.value !== "") {
+      searchParams.append("difficulty", difficulty.value);
+    }
+    if (typeQuestions.value !== "") {
+      searchParams.append("type", typeQuestions.value);
+    }
+    const response = await fetch(url + "?" + searchParams.toString());
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch questions");
+    }
+
+    const data = await response.json();
+
     console.log(data);
   } catch (error) {
-    /*
-      const statusElement = document.getElementById("timer");*/
-    console.log(error);
+    console.log(error.message);
   }
 }
+async function fetchQuickData() {
+  try {
+    const url = decodeURIComponent("https://opentdb.com/api.php");
+    const searchParams = new URLSearchParams();
+
+    searchParams.append("amount", bar.value || 10);
+    searchParams.append("encode", "url3986");
+    const response = await fetch(url + "?" + searchParams.toString());
+    if (!response.ok) {
+      throw new Error("Failed to fetch questions");
+    }
+
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+startButton.addEventListener("click", () => {
+  fetchStartData();
+});
 quickButton.addEventListener("click", () => {
-  fetchQuestions();
+  fetchQuickData();
 });
