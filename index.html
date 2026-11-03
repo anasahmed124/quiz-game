@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz Game</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
@@ -15,6 +19,10 @@
 
           <button id="Quick-button">Quick play</button>
           <button id="start-button">Start quiz</button>
+
+          <div id="myProgress">
+            <div id="myBar">0%</div>
+          </div>
 
           <div class="inputs">
             <section>
@@ -27,6 +35,7 @@
                 max="50"
                 value="10"
               />
+              <div class="counter"></div>
 
               <label for="mySelect">Choose a category:</label>
               <select id="mySelect">
@@ -47,9 +56,13 @@
                 <option value="multiple">Multiple Choices</option>
                 <option value="boolean">True / False</option>
               </select>
+              <p><span id="selected-category"></span></p>
+              <p><span id="selected-difficulty"></span></p>
 
               <div class="question-block"></div>
               <span class="bg-circle"></span>
+              <p id="quiz-feedback"></p>
+              <p id="score"></p>
             </section>
           </div>
         </div>
