@@ -6,6 +6,8 @@ const difficultySelect = document.getElementById("Difficulty");
 const questionTypeSelect = document.getElementById("Type-questions");
 const quizContainer = document.querySelector(".question-block");
 const feedbackEl = document.getElementById("quiz-feedback");
+const selectedCategory = document.getElementById("selected-category");
+const selectedDifficulty = document.getElementById("selected-difficulty");
 let questionsData;
 let canGoToNextQuestion = false;
 let correctAnswersCount = 0;
@@ -20,6 +22,25 @@ function loadingState() {
     quizContainer.textContent = "Loading questions...";
   }
 }
+
+/*function localStorageSave(questions) {
+  try {
+    localStorage.setItem("quizQuestions", JSON.stringify(questions));
+  } catch (error) {
+    console.error("Could not save questions:", error);
+  }
+}
+function localStorageLoad() {
+  try {
+    const savedQuestions = localStorage.getItem("quizQuestions");
+    if (savedQuestions) {
+      return JSON.parse(savedQuestions);
+    }
+  } catch (error) {
+    console.error("Could not load questions:", error);
+  }
+  return null;
+}*/
 
 async function fetchStartData() {
   try {
@@ -47,19 +68,21 @@ async function fetchStartData() {
 
     const responseData = await apiResponse.json();
 
-    if (state === "success") {
-      state = "success";
-      quizContainer.hidden = false;
-    }
+    state = "success";
+    quizContainer.hidden = false;
 
     questionsData = responseData.results;
+    const uniqueData = Array.from(
+      new Set(questionsData.map((a) => a.question)),
+    ).map((question) => {
+      return questionsData.find((a) => a.question === question);
+    });
     correctAnswersCount = 0;
     canGoToNextQuestion = false;
 
-    render(questionsData);
-    console.log(questionsData);
-
-    return questionsData;
+    console.log(uniqueData);
+    render(uniqueData);
+    return uniqueData;
   } catch (error) {
     state = "error";
     quizContainer.textContent = "Error loading questions. Please try again.";
@@ -69,14 +92,39 @@ async function fetchStartData() {
 
 function render(questions, currentQuestionIndex = 0) {
   quizContainer.textContent = "";
-
   const currentQuestion = questions[currentQuestionIndex];
+  const selectedCategory = document.getElementById("selected-category");
+  const selectedDifficulty = document.getElementById("selected-difficulty");
   const answersList = document.createElement("ul");
   const questionTextElement = document.createElement("p");
-
+  selectedCategory.textContent = currentQuestion.category;
+  selectedDifficulty.textContent = currentQuestion.difficulty;
   questionTextElement.textContent = decodeURIComponent(
     currentQuestion.question,
   );
+  function ProgressBar() {
+    const progressBarElem = document.getElementById("myBar");
+
+    let completedPercentage = Math.round(
+      (currentQuestionIndex / questionsData.length) * 100,
+    );
+
+    progressBarElem.style.width = completedPercentage + "%";
+    progressBarElem.textContent = completedPercentage + "%";
+  }
+
+  /*function loadSavedQuestions() {
+    const savedQuestions = localStorageLoad();
+    if (savedQuestions) {
+      questionsData = savedQuestions;
+      searchQuestions(questionsData);
+    } else {
+      fetchStartData();
+    }*/
+
+  selectedCategory.textContent =
+    "Category: " + decodeURIComponent(currentQuestion.category);
+  selectedDifficulty.textContent = "Difficulty: " + currentQuestion.difficulty;
 
   quizContainer.appendChild(questionTextElement);
   quizContainer.appendChild(answersList);
@@ -93,6 +141,7 @@ function render(questions, currentQuestionIndex = 0) {
     if (canGoToNextQuestion === true) {
       currentQuestionIndex++;
       feedbackEl.textContent = "";
+      ProgressBar();
 
       if (currentQuestionIndex < questions.length) {
         canGoToNextQuestion = false;
@@ -106,9 +155,11 @@ function render(questions, currentQuestionIndex = 0) {
   for (let i = 0; i < currentQuestion.incorrect_answers.length; i++) {
     answerOptions.push(currentQuestion.incorrect_answers[i]);
   }
-
-  answerOptions = shuffle(answerOptions);
-
+  if (currentQuestion.type === "boolean") {
+    answerOptions = ["True", "False"];
+  } else if (currentQuestion.type === "multiple") {
+    answerOptions = shuffle(answerOptions);
+  }
   for (let i = 0; i < answerOptions.length; i++) {
     const answerListItem = document.createElement("li");
     const answerTextElement = document.createElement("span");
@@ -129,9 +180,9 @@ function render(questions, currentQuestionIndex = 0) {
   }
   const counter = document.querySelector(".counter");
 
-  selectAnswers(currentQuestion);
   counter.textContent =
-    "Question " + `${currentQuestionIndex + 1} / ${questions.length}`;
+    "Question " + `${currentQuestionIndex + 1} of ${questions.length}`;
+  selectAnswers(currentQuestion, questions.length);
 }
 
 function shuffle(array) {
@@ -146,7 +197,7 @@ function shuffle(array) {
   return array;
 }
 
-function selectAnswers(currentQuestion) {
+function selectAnswers(currentQuestion, totalQuestions) {
   const answerButtons = quizContainer.querySelectorAll(".answerButton");
 
   answerButtons.forEach(function (answerButton) {
@@ -164,15 +215,18 @@ function selectAnswers(currentQuestion) {
         selectedAnswerText.style.color = "white";
         selectedAnswerText.style.backgroundColor = "seagreen";
         correctAnswersCount++;
-        score.textContent = "Correct Answers: " + correctAnswersCount;
+        score.textContent =
+          "Score: (" + correctAnswersCount + " /" + totalQuestions + ")";
       } else {
         answerButton.classList.add("wrong");
         feedbackEl.textContent =
           "Wrong! , The correct answer is   " +
           decodeURIComponent(currentQuestion.correct_answer);
-        score.textContent = "Correct Answers Still: " + correctAnswersCount;
+        score.textContent =
+          "Score: (" + correctAnswersCount + " /" + totalQuestions + ")";
         selectedAnswerText.style.color = "white";
         selectedAnswerText.style.backgroundColor = "red";
+
         answerButtons.forEach(function (correctAnswerButton) {
           const correctAnswerText = correctAnswerButton.querySelector("span");
 
@@ -180,7 +234,8 @@ function selectAnswers(currentQuestion) {
             correctAnswerText.textContent ===
             decodeURIComponent(currentQuestion.correct_answer)
           ) {
-            correctAnswerButton.classList.add("correct");
+            correctAnswerText.style.color = "white";
+            correctAnswerText.style.backgroundColor = "seagreen";
           }
         });
       }
@@ -218,6 +273,18 @@ async function fetchQuickData() {
 
 startQuizButton.addEventListener("click", function () {
   state = "loading";
+  categorySelect.hidden = true;
+  categorySelect.previousElementSibling.hidden = true;
+  questionCountInput.hidden = true;
+  questionCountInput.previousElementSibling.hidden = true;
+  difficultySelect.hidden = true;
+  difficultySelect.previousElementSibling.hidden = true;
+  questionTypeSelect.hidden = true;
+  questionTypeSelect.previousElementSibling.hidden = true;
+  questionCountInput.hidden = true;
+  questionCountInput.previousElementSibling.hidden = true;
+  quickQuizButton.hidden = true;
+  startQuizButton.hidden = true;
   loadingState();
   fetchStartData();
 });
