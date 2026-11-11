@@ -12,61 +12,134 @@
   </head>
 
   <body>
-    <div class="container">
-      <section>
-        <div>
-          <h1 class="title">Trivia Quiz</h1>
+    <div class="home-container">
+      <div>
+        <h1 class="title">Trivia Quiz</h1>
+        <label for="timer-container">
+          <img src="image/Timer Logo.svg" alt="Timer Logo" class="icon" />
+          Timer (sec):
+        </label>
+        <select name="timer-container" id="timer-container">
+          <option value="off">Off</option>
+          <option value="10">10 seconds</option>
+          <option value="20" selected>20 seconds</option>
+          <option value="30">30 seconds</option>
+        </select>
 
-          <button id="Quick-button">Quick play</button>
-          <button id="start-button">Start quiz</button>
+        <div class="inputs">
+          <label for="num-questions">
+            <img src="image/quiz.svg" alt="quiz logo" class="icon" />
+            Number of questions:
+          </label>
+          <input
+            type="number"
+            id="num-questions"
+            placeholder="Enter number of questions"
+            min="1"
+            max="50"
+            value="10"
+          />
 
-          <div id="myProgress">
-            <div id="myBar">0%</div>
-          </div>
+          <label for="mySelect">
+            <img src="image/category.svg" alt="category logo" class="icon" />
+            Choose a category:
+          </label>
 
-          <div class="inputs">
-            <section>
-              <label for="num-questions">Number of questions:</label>
-              <input
-                type="number"
-                id="num-questions"
-                placeholder="Enter number of questions"
-                min="1"
-                max="50"
-                value="10"
-              />
-              <div class="counter"></div>
+          <select id="mySelect">
+            <option value="">Any Category</option>
+          </select>
 
-              <label for="mySelect">Choose a category:</label>
-              <select id="mySelect">
-                <option value="">Any Category</option>
-              </select>
+          <label for="Difficulty">
+            <img src="image/play.svg" alt="Difficulty logo" class="icon" />
+            Select Difficulty:
+          </label>
 
-              <label for="Difficulty">Select Difficulty:</label>
-              <select name="Difficulty" id="Difficulty">
-                <option value="">Any Difficulty</option>
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-              </select>
+          <select name="Difficulty" id="Difficulty">
+            <option value="">Any Difficulty</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
 
-              <label for="Type-questions">Select Type:</label>
-              <select name="Type" id="Type-questions">
-                <option value="">Any Type</option>
-                <option value="multiple">Multiple Choices</option>
-                <option value="boolean">True / False</option>
-              </select>
-              <p><span id="selected-category"></span></p>
-              <p><span id="selected-difficulty"></span></p>
+          <label for="Type-questions">
+            <img src="image/checklist.svg" alt="" class="icon" />
+            Select Type:
+          </label>
+          <select name="Type" id="Type-questions">
+            <option value="">Any Type</option>
+            <option value="multiple">Multiple Choices</option>
+            <option value="boolean">True / False</option>
+          </select>
 
-              <div class="question-block"></div>
-              <span class="bg-circle"></span>
-              <p id="quiz-feedback"></p>
-              <p id="score"></p>
-            </section>
-          </div>
+          <button id="Quick-button">
+            <img src="image/bolt.svg" alt="Quick button logo" class="icon" />
+            Quick play
+          </button>
+
+          <button id="start-button">
+            <img
+              src="image/play_circle_24dp_B39EFF_FILL0_wght400_GRAD0_opsz24.svg"
+              alt="Start button logo"
+              class="icon"
+            />
+            Start quiz
+          </button>
         </div>
-      </section>
+      </div>
+    </div>
+
+    <div class="questions-container">
+      <p><span id="selected-category"></span></p>
+      <p><span id="selected-difficulty"></span></p>
+
+      <div class="counter"></div>
+      <h3 id="time-counter"></h3>
+      <div class="question-block"></div>
+      <span class="bg-circle"></span>
+      <p id="quiz-feedback"></p>
+      <p id="score"></p>
+
+      <div id="myProgress">
+        <div id="progress-bar">0%</div>
+      </div>
+
+      <div class="myTimer">
+        <span id="timer-bar"></span>
+      </div>
+    </div>
+
+    <div class="container-final">
+      <div id="head-titles">
+        <h1 class="final-title">Quiz Completed!</h1>
+        <p id="taht-title">You've made it to the finish line.</p>
+      </div>
+      <div id="scores-section">
+        <p>YOUR FINAL SCORE</p>
+        <p id="final-score-value"></p>
+      </div>
+
+      <p id="final-feedback"></p>
+
+      <div id="correct-section">
+        <p>Correct Answers</p>
+
+        <p id="correct-anwers-count"></p>
+      </div>
+
+      <div id="wrong-section">
+        <p>Wrong Answers</p>
+        <p id="wrong-answers-count"></p>
+      </div>
+
+      <div id="best-score">
+        <h2 id="personal-best-text">Personal Best Score</h2>
+        <p id="personal-best-number"></p>
+        <p id="personal-best-klam">Your highest score so far</p>
+      </div>
+      <div id="final-buttons-section">
+        <button id="play-again-button">Play Again</button>
+        <button id="home-button">Back To Home</button>
+      </div>
     </div>
     <script src="app.js"></script>
     <script src="dropdown.js"></script>
