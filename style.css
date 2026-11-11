@@ -1,3 +1,67 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: #eef0ff;
+}
+.title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 900;
+}
+.home-container {
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #ffffff;
+}
+.icon {
+  width: 22px;
+  height: 22px;
+}
+label,
+button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  background-color: #f6f7ff;
+  color: #c7cbf0;
+}
+
+.material-symbols-outlined {
+  font-size: 22px;
+  line-height: 1;
+  color: #0e7490;
+}
+select,
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+#Quick-button {
+  width: 100%;
+  max-width: 300px;
+  height: 100%;
+  padding: 7px 0px 7px 65px;
+  color: #2e296f;
+  background-color: rgba(234, 234, 251, 0.7);
+}
+
+#start-button {
+  width: 100%;
+  max-width: 300px;
+  height: 100%;
+  padding: 7px 0px 7px 65px;
+  background-color: rgb(119, 119, 255);
+  color: white;
+  font-weight: bold;
+}
+
 #myProgress {
   width: 100%;
   background-color: #ddd;
@@ -5,7 +69,7 @@
   overflow: hidden;
 }
 
-#myBar {
+#progress-bar {
   width: 0%;
   height: 30px;
   background-color: #04aa6d;
@@ -13,4 +77,26 @@
   line-height: 30px;
   color: white;
   transition: width 0.3s ease;
+}
+
+.myTimer {
+  height: 50px;
+  width: 250px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+#timer-bar {
+  display: block;
+
+  height: 110px;
+  width: 50px;
+
+  background: #4caf50;
+  transition:
+    width 1s linear,
+    background-color 0.5s;
+}
+[hidden] {
+  display: none !important;
 }
