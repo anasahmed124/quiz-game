@@ -1,0 +1,694 @@
+/* ==================== General ==================== */
+
+* {
+  box-sizing: border-box;
+}
+
+/* ==================== Theme Variables ==================== */
+
+:root {
+  /* Main Colors */
+  --bg-color: #e6e1f4;
+  --container-color: #ffffff;
+  --input-color: #e6e1f4;
+
+  /* Text */
+  --text-color: #000000;
+  --accent-color: #3524d0;
+  --secondary-text: #625b70;
+
+  /* Borders */
+  --border-color: #d9d6ee;
+
+  /* Secondary Backgrounds */
+  --soft-bg-color: #f4f1fd;
+  --button-bg-color: #eeecfb;
+
+  /* Hover */
+  --hover-color: #dbd6e9;
+
+  /* Success & Error */
+  --success-bg: #c9f7e3;
+  --success-text: #0b6b4a;
+  --error-bg: #fdeeee;
+  --error-text: #b42318;
+
+  /* Answer Colors */
+  --correct-color: #0b6b4a;
+  --wrong-color: #b42318;
+}
+
+.dark-mode {
+  /* Main Colors */
+  --bg-color: #151321;
+  --container-color: #211e30;
+  --input-color: #302b45;
+
+  /* Text */
+  --text-color: #f4f1fa;
+  --accent-color: #8b7cff;
+  --secondary-text: #beb6d5;
+
+  /* Borders */
+  --border-color: #40395b;
+
+  /* Secondary Backgrounds */
+  --soft-bg-color: #29253b;
+  --button-bg-color: #302b45;
+
+  /* Hover */
+  --hover-color: #40395b;
+
+  /* Success & Error */
+  --success-bg: #193b32;
+  --success-text: #83e0b5;
+  --error-bg: #442727;
+  --error-text: #ffaaa3;
+
+  /* Answer Colors */
+  --correct-color: #83e0b5;
+  --wrong-color: #ffaaa3;
+}
+
+/* ==================== Body & General Elements ==================== */
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 40px;
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+select:focus,
+toggle-button:focus,
+input[type="number"]:focus {
+  outline-color: var(--accent-color);
+}
+
+/* ==================== Containers ==================== */
+
+.home-container,
+.questions-container,
+.container-final {
+  padding: 1.25rem 2rem 2rem;
+  background-color: var(--container-color);
+  border-radius: 10px;
+}
+
+.container-final {
+  text-align: center;
+}
+
+/* ==================== Titles & Text ==================== */
+
+.title {
+  color: var(--text-color);
+  text-align: center;
+  font-size: 35px;
+  font-weight: 900;
+  margin: 0 0 30px;
+}
+
+.question-text {
+  margin-top: 10px;
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  background: var(--bg-color);
+  font-weight: bold;
+}
+
+#selected-category,
+#selected-difficulty {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: var(--bg-color);
+}
+
+#selected-category {
+  color: var(--accent-color);
+}
+
+#selected-difficulty {
+  color: var(--text-color);
+}
+
+#time-bar-text,
+#time-counter {
+  margin: 0;
+  white-space: nowrap;
+}
+
+#timer-counter {
+  font-size: 50px;
+}
+
+/* ==================== Labels & Icons ==================== */
+
+label,
+button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+}
+
+.homeicon {
+  width: 27px;
+  height: 27px;
+}
+.toggle-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+#toggle-button,
+#toggle-sound-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+#theme-logo,
+#sound-logo {
+  width: 37px;
+  height: 37px;
+}
+
+#theme-logo {
+  width: 28px;
+  height: 28px;
+}
+
+/* ==================== Inputs ==================== */
+
+select,
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--input-color);
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+/* ==================== Timer ==================== */
+
+.myTimer {
+  background: #e0e0e0;
+  border-radius: 999px;
+  width: 100%;
+  overflow: hidden;
+  height: 12px;
+}
+
+#timer-bar {
+  display: block;
+  height: 100%;
+  background: #4caf50;
+  transition:
+    width 1s linear,
+    background-color 0.5s;
+}
+
+.time-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#time-counter {
+  margin-left: auto;
+  color: #4caf50;
+}
+
+/* ==================== Questions ==================== */
+
+.question-block ul {
+  counter-reset: answer;
+  list-style: none;
+  padding: 0;
+}
+
+.question-counter,
+.time-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==================== Answer Buttons ==================== */
+
+.answerButton {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 10px;
+  min-height: 48px;
+  box-shadow: 0 3px 0 var(--border-color);
+}
+
+.answerButton > span {
+  flex: 1;
+  color: var(--text-color);
+}
+
+.answerButton::before {
+  counter-increment: answer;
+  content: counter(answer, upper-alpha);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  border-radius: 50%;
+  background-color: #ece9fb;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* Correct & Wrong Answers */
+
+.answerButton.correct {
+  border: 2px solid var(--correct-color);
+  box-shadow: 0 3px 0 var(--correct-color);
+}
+
+.answerButton.wrong {
+  border: 2px solid var(--wrong-color);
+  box-shadow: 0 3px 0 var(--wrong-color);
+}
+
+.answerButton.correct .radio {
+  color: var(--correct-color);
+  filter: drop-shadow(0 0 4px var(--correct-color));
+}
+
+.answerButton.wrong .radio {
+  color: var(--wrong-color);
+  filter: drop-shadow(0 0 4px var(--wrong-color));
+}
+
+.answerButton.correct::before {
+  background-color: var(--correct-color);
+  color: white;
+}
+
+.answerButton.wrong::before {
+  background-color: var(--wrong-color);
+  color: white;
+}
+
+/* ==================== Feedback ==================== */
+
+.feedback-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--button-bg-color);
+  margin-top: 16px;
+}
+
+.feedback-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#quiz-feedback,
+#score {
+  margin: 0;
+}
+
+.feedback-box.correct {
+  background: var(--success-bg);
+  color: var(--success-text);
+}
+
+.feedback-box.wrong {
+  background: var(--error-bg);
+  color: var(--error-text);
+}
+
+/* ==================== Progress Bar ==================== */
+
+#myProgress {
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#progress-bar {
+  width: 0%;
+  height: 10px;
+  background-color: #3524d0;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  transition: width 0.3s ease;
+  border-radius: 999px;
+}
+
+#progress-text {
+  margin-top: 5px;
+  margin-bottom: 8px;
+  display: flex;
+}
+
+.progress-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+hr {
+  border: none;
+  border-top: 2px solid var(--border-color);
+  margin: 5px 0;
+}
+
+/* ==================== Buttons ==================== */
+
+#next-button {
+  display: flex;
+  width: 100%;
+  font-size: 16px;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  background-color: #3524d0;
+  color: white;
+}
+
+#next-button:hover {
+  background-color: #4935ff;
+}
+
+.nextBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.nextBtn::after {
+  content: "→";
+  font-size: 16px;
+}
+
+#Quick-button,
+#start-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+#Quick-button {
+  border: 1px solid var(--border-color);
+  color: #3524d0;
+  background-color: #e6e1f4;
+}
+
+#Quick-button:hover {
+  background-color: #dbd6e9;
+}
+
+#start-button {
+  border: none;
+  background-color: var(--accent-color);
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 3px 0 #5b48fe;
+}
+
+#start-button:hover {
+  background-color: #4935ff;
+}
+
+/* ==================== Final Page ==================== */
+
+.Medal {
+  display: flex;
+  justify-content: center;
+}
+
+.Medalicon {
+  width: 64px;
+  height: 64px;
+  padding: 14px;
+  border-radius: 999px;
+  background-color: #e6e1f4;
+}
+
+.final-title {
+  margin: 10px 0 5px;
+  font-size: 30px;
+}
+
+#taht-title {
+  margin: 0 0 20px;
+}
+
+#scores-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background-color: var(--soft-bg-color);
+}
+
+#scores-section p {
+  margin: 0;
+}
+
+#final-score-value {
+  font-size: 40px;
+  font-weight: bold;
+  color: var(--accent-color);
+}
+
+.Badge-Check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background-color: #c9f7e3;
+  color: #0b6b4a;
+  font-weight: bold;
+}
+
+#correct-section,
+#wrong-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  padding: 18px 15px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+#correct-section {
+  background-color: #c9f7e3;
+  border: 1px solid #8fe9c3;
+  color: #0b6b4a;
+}
+
+#wrong-section {
+  background-color: #fdeeee;
+  border: 1px solid #f6caca;
+  color: #b42318;
+}
+
+#correct-section p,
+#wrong-section p {
+  margin: 0;
+}
+
+#correct-anwers-count,
+#wrong-answers-count {
+  margin-left: auto !important;
+  color: var(--text-color);
+}
+
+#best-score {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  text-align: left;
+}
+
+#personal-best-text {
+  margin: 0;
+  font-size: 16px;
+}
+
+#personal-best-klam {
+  color: var(--secondary-text);
+  margin: 0;
+}
+
+.trind {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--button-bg-color);
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.trind p {
+  margin: 0;
+}
+
+#final-buttons-section {
+  margin-top: 20px;
+}
+
+#play-again-button,
+#home-button {
+  justify-content: center;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+#play-again-button {
+  border: none;
+  background-color: #3524d0;
+  color: white;
+  box-shadow: 0 3px 0 #1a1080;
+}
+
+#home-button {
+  border: 1px solid var(--border-color);
+  background-color: var(--container-color);
+  color: var(--text-color);
+  box-shadow: 0 3px 0 var(--border-color);
+}
+
+/* ==================== Dialog ==================== */
+
+.dialog {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin-top: 10px;
+}
+
+#open-button {
+  margin: 0;
+  padding: 10px 20px;
+  border: 1px solid #ea3323;
+  border-radius: 8px;
+  background-color: white;
+  color: #ea3323;
+  font-weight: bold;
+}
+
+#open-button:hover {
+  background-color: #fdeaea;
+}
+
+#my-dialog {
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#my-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#yes-button,
+#no-button {
+  display: inline-flex;
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+}
+
+#yes-button {
+  background-color: #ea3323;
+  color: white;
+}
+
+#no-button {
+  background-color: #e6e1f4;
+}
+
+/* ==================== Dark Mode Adjustments ==================== */
+
+.dark-mode .answerButton {
+  background-color: var(--soft-bg-color);
+  color: var(--text-color);
+}
+
+.dark-mode .answerButton:not(.correct):not(.wrong) {
+  box-shadow: 0 3px 0 var(--border-color);
+}
+
+.dark-mode .answerButton:not(.correct):not(.wrong)::before {
+  background-color: var(--input-color);
+  color: var(--text-color);
+}
+
+.dark-mode #myProgress {
+  background-color: var(--input-color);
+}

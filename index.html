@@ -5,55 +5,278 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz Game</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
-    <div class="container">
-      <section>
-        <div>
-          <h1 class="title">Trivia Quiz</h1>
+    <div class="toggle-buttons">
+      <button id="toggle-button">
+        <img
+          id="theme-logo"
+          src="image/dark_mode_24dp_8B7CFF_FILL0_wght400_GRAD0_opsz24.svg"
+          alt="Dark mode Logo"
+          class="modeicon"
+        />
+      </button>
 
-          <button id="Quick-button">Quick play</button>
-          <button id="start-button">Start quiz</button>
+      <button id="toggle-sound-button">
+        <img
+          id="sound-logo"
+          src="image/no_sound_24dp_8B7CFF_FILL0_wght400_GRAD0_opsz24.svg"
+          alt="No Sound Logo"
+          class="noSoundIcon"
+        />
+      </button>
+    </div>
 
-          <div class="inputs">
-            <section>
-              <label for="num-questions">Number of questions:</label>
-              <input
-                type="number"
-                id="num-questions"
-                placeholder="Enter number of questions"
-                min="1"
-                max="50"
-                value="10"
-              />
+    <div class="home-container">
+      <div>
+        <h1 class="title">Trivia Quiz</h1>
+        <label for="timer-container">
+          <img
+            src="image/timer_24dp_3524D0_FILL0_wght400_GRAD0_opsz24.svg"
+            alt="Timer Logo"
+            class="icon"
+          />
+          Timer (sec):
+        </label>
+        <select name="timer-container" id="timer-container">
+          <option value="off">Off</option>
+          <option value="10">10 seconds</option>
+          <option value="20" selected>20 seconds</option>
+          <option value="30">30 seconds</option>
+        </select>
 
-              <label for="mySelect">Choose a category:</label>
-              <select id="mySelect">
-                <option value="">Any Category</option>
-              </select>
+        <div class="inputs">
+          <label for="num-questions">
+            <img
+              src="image/quiz_24dp_3524D0_FILL0_wght400_GRAD0_opsz24.svg"
+              alt="quiz logo"
+              class="icon"
+            />
+            Number of questions:
+          </label>
+          <input
+            type="number"
+            id="num-questions"
+            placeholder="Enter number of questions"
+            min="1"
+            max="50"
+            value="10"
+          />
 
-              <label for="Difficulty">Select Difficulty:</label>
-              <select name="Difficulty" id="Difficulty">
-                <option value="">Any Difficulty</option>
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-              </select>
+          <label for="mySelect">
+            <img
+              src="image/category_24dp_3524D0_FILL0_wght400_GRAD0_opsz24.svg"
+              alt="category logo"
+              class="icon"
+            />
+            Choose a category:
+          </label>
 
-              <label for="Type-questions">Select Type:</label>
-              <select name="Type" id="Type-questions">
-                <option value="">Any Type</option>
-                <option value="multiple">Multiple Choices</option>
-                <option value="boolean">True / False</option>
-              </select>
+          <select id="mySelect">
+            <option value="">Any Category</option>
+          </select>
 
-              <div class="question-block"></div>
-              <span class="bg-circle"></span>
-            </section>
+          <label for="Difficulty">
+            <img
+              src="image/tune_24dp_3524D0_FILL0_wght400_GRAD0_opsz24.svg"
+              alt="Difficulty logo"
+              class="icon"
+            />
+            Select Difficulty:
+          </label>
+
+          <select name="Difficulty" id="Difficulty">
+            <option value="">Any Difficulty</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+
+          <label for="Type-questions">
+            <img
+              src="image/checklist_24dp_3524D0_FILL0_wght400_GRAD0_opsz24.svg"
+              alt=""
+              class="icon"
+            />
+            Select Type:
+          </label>
+          <select name="Type" id="Type-questions">
+            <option value="">Any Type</option>
+            <option value="multiple">Multiple Choices</option>
+            <option value="boolean">True / False</option>
+          </select>
+
+          <button id="Quick-button">
+            <img
+              src="image/bolt_24dp_3524D0_FILL0_wght400_GRAD0_opsz24.svg"
+              alt="Quick button logo"
+              class="icon"
+            />
+            Quick Play
+          </button>
+
+          <button id="start-button">
+            <img
+              src="image/play_circle_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg"
+              alt="Start button logo"
+              class="icon"
+            />
+            Start Quiz
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="questions-container">
+      <div class="hidden-container">
+        <p><span id="selected-category"></span></p>
+        <p><span id="selected-difficulty"></span></p>
+
+        <div class="question-counter">
+          <img
+            src="image/quiz_24dp_3524D0_FILL0_wght400_GRAD0_opsz24.svg"
+            alt=""
+            class="icon"
+          />
+          <span class="counter"></span>
+        </div>
+
+        <div class="time-row">
+          <img
+            src="image/timer_24dp_04AA6D_FILL0_wght400_GRAD0_opsz24.svg"
+            alt=""
+            class="icon"
+          />
+          <p id="time-bar-text">Time Remaining</p>
+          <h3 id="time-counter"></h3>
+        </div>
+
+        <div class="myTimer">
+          <span id="timer-bar"></span>
+        </div>
+      </div>
+      <div class="question-block"></div>
+      <div class="hidden-container2">
+        <div class="feedback-box">
+          <div class="feedback-main">
+            <img id="feedback-icon" class="icon" src="" alt="" hidden />
+
+            <p id="quiz-feedback"></p>
+          </div>
+          <p id="score"></p>
+        </div>
+
+        <button class="nextBtn" id="next-button" disabled>Next Question</button>
+        <hr />
+
+        <div id="myProgress-wrapper">
+          <div class="progress-row">
+            <p id="progress-text">Quiz Progress</p>
+            <span id="progress-percent">0% Complete</span>
+          </div>
+
+          <div id="myProgress">
+            <div id="progress-bar"></div>
           </div>
         </div>
-      </section>
+        <div class="dialog">
+          <img
+            src="image/logout_24dp_EA3323_FILL0_wght400_GRAD0_opsz24.svg"
+            alt=""
+            class="icon"
+          />
+          <dialog id="my-dialog">
+            <h2>Are you sure you want to quit?</h2>
+            <button id="yes-button">Yes</button>
+            <button id="no-button">No</button>
+          </dialog>
+          <button id="open-button">Quit Quiz</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-final">
+      <div class="Medal">
+        <img
+          src="image/workspace_premium_24dp_3524D0_FILL0_wght400_GRAD0_opsz24.svg"
+          alt=""
+          class="Medalicon"
+        />
+      </div>
+      <h1 class="final-title">Quiz Completed!</h1>
+      <p id="taht-title">You've made it to the finish line.</p>
+
+      <div id="scores-section">
+        <p>YOUR FINAL SCORE</p>
+        <p id="final-score-value"></p>
+        <div class="Badge-Check">
+          <img
+            src="image/verified_24dp_75FB4C_FILL0_wght400_GRAD0_opsz24.svg"
+            alt=""
+            class="icon"
+          />
+          <p id="final-feedback"></p>
+        </div>
+      </div>
+
+      <div id="correct-section">
+        <img
+          src="image/check_circle_24dp_04AA6D_FILL0_wght400_GRAD0_opsz24.svg"
+          alt=""
+          class="icon"
+        />
+        <p>Correct Answers</p>
+        <p id="correct-answers-count"></p>
+      </div>
+
+      <div id="wrong-section">
+        <img
+          src="image/x_circle_24dp_EA3323_FILL0_wght400_GRAD0_opsz24.svg"
+          alt=""
+          class="icon"
+        />
+        <p>Wrong Answers</p>
+        <p id="wrong-answers-count"></p>
+      </div>
+
+      <div id="best-score">
+        <div>
+          <h2 id="personal-best-text">Personal Best Score</h2>
+          <p id="personal-best-klam">Your highest score so far</p>
+        </div>
+        <div class="trind">
+          <img
+            src="image/trending_up_24dp_3524D0_FILL0_wght400_GRAD0_opsz24.svg"
+            alt=""
+            class="icon"
+          />
+          <p id="personal-best-number"></p>
+        </div>
+      </div>
+
+      <div id="final-buttons-section">
+        <button id="play-again-button">
+          <img
+            src="image/refresh_24dp_FFFF_FILL0_wght400_GRAD0_opsz24.svg"
+            alt=""
+            class="icon"
+          />
+          Play Again
+        </button>
+        <button id="home-button">
+          <img
+            src="image/home_24dp_FFFFF_FILL0_wght400_GRAD0_opsz24.svg"
+            alt=""
+            class="homeicon"
+          />
+          Back To Home
+        </button>
+      </div>
     </div>
     <script src="app.js"></script>
     <script src="dropdown.js"></script>
